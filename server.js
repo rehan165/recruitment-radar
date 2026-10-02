@@ -7,6 +7,7 @@ const app = express();
 // Middlewares
 app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname)); // <-- ADD THIS NEW LINE
 
 // 1. Connect to MongoDB Atlas
 // Remember to replace <db_password> with your actual database user password
