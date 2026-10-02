@@ -76,7 +76,7 @@
     <script>
         async function loadAdminData() {
             try {
-                const res = await fetch('/api/candidates');
+                const res = await fetch('http://localhost:5000/api/candidates');
                 const candidates = await res.json();
 
                 document.getElementById('candidateCount').innerText = candidates.length;
