@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Candidate Dashboard - RecruitmentRadar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body { background-color: #f4f6f9; display: flex; flex-direction: column; min-height: 100vh; }
+        .profile-avatar { width: 130px; height: 130px; object-fit: cover; }
+        footer { margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand text-danger fw-bold" href="index.html">
+                <i class="bi bi-radar me-1"></i>RecruitmentRadar
+            </a>
+            <div class="d-flex align-items-center gap-3">
+                <span class="navbar-text text-white fw-semibold" id="navUserGreeting">Welcome!</span>
+                <button onclick="logoutCandidate()" class="btn btn-outline-danger btn-sm px-3">
+                    <i class="bi bi-box-arrow-right me-1"></i>Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5 flex-grow-1">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body text-center p-4">
+                        <img id="userAvatar" src="" class="rounded-circle mb-3 border border-3 border-danger profile-avatar" alt="Profile">
+                        <h4 class="mb-1" id="profileDisplayName">Loading...</h4>
+                        <p class="text-muted mb-3">Software Developer</p>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="fw-bold">Profile Completion:</span>
+                            <span class="text-success fw-bold">80%</span>
+                        </div>
+                        <div class="progress mb-3" style="height: 10px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 80%;"></div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-outline-primary">Upload Resume</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <h3 class="mb-3 text-dark">Recommended Jobs</h3>
+                
+                <div class="card shadow-sm border-0 mb-3 border-start border-4 border-primary">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5 class="card-title mb-1">Junior Python Developer</h5>
+                                <h6 class="card-subtitle text-muted mb-2">TechCorp India &bull; Pune</h6>
+                            </div>
+                            <span class="badge bg-primary">Full-time</span>
+                        </div>
+                        <button class="btn btn-sm btn-primary mt-2" onclick="this.innerText='Applied'; this.disabled=true; this.classList.replace('btn-primary', 'btn-success');">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const activeUser = localStorage.getItem('active_user');
+
+        if (!activeUser) {
+            alert("Session expired or you are not logged in. Please sign in to access your dashboard.");
+            window.location.href = "logindemo.html";
+        } else {
+            document.getElementById('navUserGreeting').innerText = `Welcome, ${activeUser}!`;
+            document.getElementById('profileDisplayName').innerText = activeUser;
+            document.getElementById('userAvatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(activeUser)}&background=dc3545&color=fff&size=150`;
+        }
+
+        function logoutCandidate() {
+            if (confirm("Are you sure you want to log out?")) {
+                localStorage.removeItem('active_user');
+                window.location.href = "logindemo.html";
+            }
+        }
+    </script>
+</body>
+</html>

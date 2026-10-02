@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Candidate Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { 
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('image2.jpg') no-repeat center center fixed; 
+            background-size: cover; display: flex; flex-direction: column; min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-danger fw-bold" href="index.html">RecruitmentRadar</a>
+            <a href="index.html" class="btn btn-outline-light btn-sm">Back to Home</a>
+        </div>
+    </nav>
+
+    <div class="container my-5 flex-grow-1">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-danger text-white text-center py-3">
+                        <h3 class="mb-0">Candidate Registration</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <form id="regForm">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Full Name</label>
+                                <input type="text" class="form-control" name="txtname" required>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Email</label>
+                                    <input type="email" class="form-control" name="txtemail" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Password</label>
+                                    <input type="password" class="form-control" name="txtpass" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Confirm Password</label>
+                                    <input type="password" class="form-control" name="txtcpass" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Mobile Number</label>
+                                    <input type="tel" class="form-control" name="txtmno" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Aadhaar Number</label>
+                                    <input type="text" class="form-control" name="txtano" placeholder="[Aadhaar Redacted]" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Date of Birth</label>
+                                    <input type="date" class="form-control" name="txtdob" required>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Current Address</label>
+                                    <textarea class="form-control" name="txtcadd" rows="3"></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">
+                                        Permanent Address 
+                                        <small class="text-muted fs-6 ms-2">
+                                            <input type="checkbox" id="chkSameAddress" class="form-check-input"> Same as Current
+                                        </small>
+                                    </label>
+                                    <textarea class="form-control" name="txtpadd" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                <button type="submit" id="regBtn" class="btn btn-primary btn-lg px-5">Submit Registration</button>
+                                <button type="reset" class="btn btn-secondary btn-lg px-5">Clear</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('chkSameAddress').addEventListener('change', function() {
+            const currentAdd = document.querySelector('textarea[name="txtcadd"]').value;
+            const permAdd = document.querySelector('textarea[name="txtpadd"]');
+            permAdd.value = this.checked ? currentAdd : '';
+        });
+
+        document.getElementById('regForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('regBtn');
+            btn.innerHTML = 'Registering...';
+            btn.disabled = true;
+
+            let name = document.querySelector('input[name="txtname"]').value.trim();
+            let email = document.querySelector('input[name="txtemail"]').value.trim();
+            let pass = document.querySelector('input[name="txtpass"]').value;
+            let cpass = document.querySelector('input[name="txtcpass"]').value;
+            let mno = document.querySelector('input[name="txtmno"]').value.trim();
+            let ano = document.querySelector('input[name="txtano"]').value.trim();
+            let dob = document.querySelector('input[name="txtdob"]').value;
+            let cadd = document.querySelector('textarea[name="txtcadd"]').value.trim();
+            let padd = document.querySelector('textarea[name="txtpadd"]').value.trim();
+
+            if (pass !== cpass) {
+                alert("Passwords do not match!");
+                btn.innerHTML = 'Submit Registration';
+                btn.disabled = false;
+                return;
+            }
+
+            try {
+                const res = await fetch('http://localhost:5000/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, pass, mno, ano, dob, cadd, padd })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert("Registration successful! Redirecting to login...");
+                    window.location.href = "logindemo.html";
+                } else {
+                    alert(data.message);
+                    btn.innerHTML = 'Submit Registration';
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                alert("Could not connect to backend server. Make sure Node server is running.");
+                btn.innerHTML = 'Submit Registration';
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

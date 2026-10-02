@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RecruitmentRadar | Find Your Dream Tech Job</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body { 
+            background-color: #f8fafc; 
+            font-family: system-ui, -apple-system, sans-serif;
+            display: flex; flex-direction: column; min-height: 100vh; 
+        }
+        .hero-section {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9)), url('image1.jpg') center/cover;
+            color: #fff; padding: 80px 0 100px;
+        }
+        .search-box {
+            background: #fff; border-radius: 12px; padding: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .job-card { transition: all 0.25s ease-in-out; border: 1px solid #e2e8f0; border-radius: 12px; }
+        .job-card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08); border-color: #dc3545; }
+        .category-card { border-radius: 10px; border: 1px solid #e2e8f0; background: #fff; transition: 0.2s; text-decoration: none; color: inherit; }
+        .category-card:hover { border-color: #0d6efd; background-color: #f1f5f9; }
+        footer { margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <!-- Professional Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-danger fs-4" href="index.html">
+                <i class="bi bi-radar me-1"></i>RecruitmentRadar
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Find Jobs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#categories">Explore Tech</a></li>
+                </ul>
+
+                <!-- Dynamic Auth Section -->
+                <div class="d-flex align-items-center gap-2" id="navAuthContainer">
+                    <a href="logindemo.html" class="btn btn-outline-light btn-sm px-3">Sign In</a>
+                    <a href="employeereg.html" class="btn btn-danger btn-sm px-3">Register</a>
+                    <div class="vr bg-secondary mx-2 d-none d-lg-block" style="width: 2px;"></div>
+                    <a href="admin_dashboard.html" class="btn btn-warning btn-sm px-3 fw-bold text-dark">
+                        <i class="bi bi-briefcase-fill me-1"></i> Post a Job
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Hero -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Connecting Ambition With Opportunity</h1>
+            <p class="lead text-light mb-5">Discover thousands of verified tech openings across top startups and multinational firms.</p>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="search-box text-dark">
+                        <form class="row g-2 align-items-center">
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-0"><i class="bi bi-search text-muted"></i></span>
+                                    <input type="text" id="jobSearchInput" class="form-control border-0 shadow-none" placeholder="Job title, skill, or keyword...">
+                                </div>
+                            </div>
+                            <div class="col-md-4 border-start">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-0"><i class="bi bi-geo-alt text-muted"></i></span>
+                                    <select class="form-select border-0 shadow-none" id="locationFilter">
+                                        <option value="">All Locations</option>
+                                        <option value="Pune">Pune, India</option>
+                                        <option value="Bangalore">Bangalore, India</option>
+                                        <option value="Remote">Remote</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" id="searchBtn" class="btn btn-danger w-100 py-2 fw-semibold" onclick="executeSearch()">
+                                    <i class="bi bi-search me-1"></i>Find Jobs
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Categories -->
+    <section class="container py-5" id="categories">
+        <h3 class="fw-bold mb-4">Browse by Technology</h3>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <a href="java.html" class="category-card p-4 d-flex align-items-center gap-3 h-100">
+                    <div class="p-3 bg-danger bg-opacity-10 rounded text-danger fs-3"><i class="bi bi-cup-hot"></i></div>
+                    <div><h5 class="fw-bold mb-1">Java Ecosystem</h5><p class="text-muted small mb-0">Spring Boot, Microservices</p></div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="python.html" class="category-card p-4 d-flex align-items-center gap-3 h-100">
+                    <div class="p-3 bg-warning bg-opacity-10 rounded text-warning fs-3"><i class="bi bi-filetype-py"></i></div>
+                    <div><h5 class="fw-bold mb-1">Python & AI</h5><p class="text-muted small mb-0">Django, FastAPI, Data Science</p></div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="php.html" class="category-card p-4 d-flex align-items-center gap-3 h-100">
+                    <div class="p-3 bg-info bg-opacity-10 rounded text-info fs-3"><i class="bi bi-filetype-php"></i></div>
+                    <div><h5 class="fw-bold mb-1">PHP Full-Stack</h5><p class="text-muted small mb-0">Laravel, MySQL, CMS</p></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Job Feed -->
+    <section class="container py-4">
+        <h3 class="fw-bold mb-3">Featured Tech Openings</h3>
+        <div class="row g-3" id="jobFeed">
+            <div class="col-lg-6 job-item" data-title="Junior Python Developer" data-location="Pune">
+                <div class="card job-card p-4 bg-white h-100">
+                    <span class="badge bg-primary-subtle text-primary mb-2 align-self-start">Full-time</span>
+                    <h5 class="fw-bold mb-1">Junior Python Developer</h5>
+                    <p class="text-muted small mb-2"><i class="bi bi-building me-1"></i> TechCorp Solutions &bull; Pune</p>
+                    <p class="text-secondary small mb-3">Looking for a developer proficient with Python, REST API architecture, and SQL databases.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                        <span class="text-muted small"><i class="bi bi-clock me-1"></i>Posted 2 days ago</span>
+                        <a href="employeereg.html" class="btn btn-outline-danger btn-sm px-3">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 job-item" data-title="Java Backend Engineer" data-location="Remote">
+                <div class="card job-card p-4 bg-white h-100">
+                    <span class="badge bg-success-subtle text-success mb-2 align-self-start">Remote</span>
+                    <h5 class="fw-bold mb-1">Java Backend Engineer</h5>
+                    <p class="text-muted small mb-2"><i class="bi bi-building me-1"></i> CloudScale Systems &bull; Remote</p>
+                    <p class="text-secondary small mb-3">Strong background in Core Java, OOP fundamentals, multithreading, and Spring Boot required.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                        <span class="text-muted small"><i class="bi bi-clock me-1"></i>Posted today</span>
+                        <a href="employeereg.html" class="btn btn-outline-danger btn-sm px-3">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 job-item" data-title="Full Stack PHP Developer" data-location="Pune">
+                <div class="card job-card p-4 bg-white h-100">
+                    <span class="badge bg-info-subtle text-info mb-2 align-self-start">Hybrid</span>
+                    <h5 class="fw-bold mb-1">Full Stack PHP Developer</h5>
+                    <p class="text-muted small mb-2"><i class="bi bi-building me-1"></i> WebCraft Digital &bull; Pune</p>
+                    <p class="text-secondary small mb-3">Responsible for building scalable web interfaces using PHP 8, MySQL schemas, and Bootstrap.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                        <span class="text-muted small"><i class="bi bi-clock me-1"></i>Posted 4 days ago</span>
+                        <a href="employeereg.html" class="btn btn-outline-danger btn-sm px-3">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 job-item" data-title="Associate Database Administrator" data-location="Bangalore">
+                <div class="card job-card p-4 bg-white h-100">
+                    <span class="badge bg-warning-subtle text-dark mb-2 align-self-start">Urgent</span>
+                    <h5 class="fw-bold mb-1">Associate Database Administrator</h5>
+                    <p class="text-muted small mb-2"><i class="bi bi-building me-1"></i> DataSphere Analytics &bull; Bangalore</p>
+                    <p class="text-secondary small mb-3">Manage relational SQL tables, execute query optimization, and ensure data integrity.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                        <span class="text-muted small"><i class="bi bi-clock me-1"></i>Posted 1 day ago</span>
+                        <a href="employeereg.html" class="btn btn-outline-danger btn-sm px-3">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-light py-4 border-top border-secondary">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <p class="mb-0 text-muted">&copy; All rights reserved with Shreevidya. Support: <strong>8999050631</strong></p>
+            <div class="d-flex gap-3 small text-muted">
+                <a href="java.html" class="text-decoration-none text-light">Java</a>
+                <a href="python.html" class="text-decoration-none text-light">Python</a>
+                <a href="php.html" class="text-decoration-none text-light">PHP</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Check Auth Status
+        function updateNavbarAuth() {
+            const activeUser = localStorage.getItem('active_user');
+            const container = document.getElementById('navAuthContainer');
+
+            if (activeUser) {
+                container.innerHTML = `
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light btn-sm dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i><span>Welcome, ${activeUser}</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow">
+                            <li><a class="dropdown-item" href="user_dashboard.html"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><button class="dropdown-item text-danger" onclick="handleLogout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</button></li>
+                        </ul>
+                    </div>
+                    <div class="vr bg-secondary mx-2 d-none d-lg-block" style="width: 2px;"></div>
+                    <a href="admin_dashboard.html" class="btn btn-warning btn-sm px-3 fw-bold text-dark"><i class="bi bi-briefcase-fill me-1"></i> Post a Job</a>
+                `;
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('active_user');
+            window.location.reload();
+        }
+
+        // Search Filters
+        function executeSearch() {
+            let btn = document.getElementById('searchBtn');
+            let originalContent = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Searching...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                filterJobs();
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                document.getElementById('jobFeed').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 600);
+        }
+
+        function filterJobs() {
+            let search = document.getElementById('jobSearchInput').value.toLowerCase();
+            let location = document.getElementById('locationFilter').value.toLowerCase();
+            let cards = document.querySelectorAll('.job-item');
+            let matchCount = 0;
+
+            cards.forEach(card => {
+                let title = card.getAttribute('data-title').toLowerCase();
+                let loc = card.getAttribute('data-location').toLowerCase();
+                let matchesSearch = search === '' || title.includes(search);
+                let matchesLocation = location === '' || loc.includes(location);
+
+                if (matchesSearch && matchesLocation) {
+                    card.style.display = 'block';
+                    card.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, fill: 'forwards' });
+                    matchCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            let jobFeed = document.getElementById('jobFeed');
+            let noResultsMsg = document.getElementById('noResultsMsg');
+
+            if (matchCount === 0) {
+                if (!noResultsMsg) {
+                    noResultsMsg = document.createElement('div');
+                    noResultsMsg.id = 'noResultsMsg';
+                    noResultsMsg.className = 'col-12 text-center py-5 bg-white rounded shadow-sm border mt-3';
+                    noResultsMsg.innerHTML = `
+                        <i class="bi bi-search text-muted mb-3" style="font-size: 3rem;"></i>
+                        <h4 class="text-dark fw-bold">No matching jobs found</h4>
+                        <p class="text-secondary mb-4">We couldn't find any positions matching your search keywords or location.</p>
+                        <button class="btn btn-outline-danger px-4" onclick="clearSearch()">Clear Filters</button>
+                    `;
+                    jobFeed.appendChild(noResultsMsg);
+                }
+                noResultsMsg.style.display = 'block';
+            } else if (noResultsMsg) {
+                noResultsMsg.style.display = 'none';
+            }
+        }
+
+        function clearSearch() {
+            document.getElementById('jobSearchInput').value = '';
+            document.getElementById('locationFilter').value = '';
+            executeSearch();
+        }
+
+        updateNavbarAuth();
+    </script>
+</body>
+</html>
